@@ -2,6 +2,10 @@
 
 ### humorous test task with vue, vue-router, vuex
 
+# You can see result on netlify
+
+https://adoring-blackwell-9a9340.netlify.app/
+
 ## Project setup
 
 ```
