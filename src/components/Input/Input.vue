@@ -3,12 +3,13 @@
     <p>
       <input
         class="input"
-        type="text"
+        :class="{ error: errors.length > 0 }"
+        type="number"
         :id="id"
         :placeholder="label"
         :value="value"
         :required="required"
-        v-on:input="updateValue($event.target.value)"
+        @input="updateValue($event.target.value)"
       />
     </p>
   </div>
@@ -29,10 +30,12 @@ export default {
     },
     required: {
       type: Boolean,
-      default: true,
+      default: false,
+    },
+    errors: {
+      type: Array,
     },
   },
-
   methods: {
     updateValue: function(value) {
       this.$emit("input", value)
@@ -49,6 +52,10 @@ export default {
   line-height: 16px;
   border-radius: 50px;
   text-align: center;
+}
+
+.error {
+  border: 1px solid #ee5353;
 }
 
 input::-webkit-outer-spin-button,

@@ -10,15 +10,30 @@
       </div>
       <div class="answers">
         <div class="answers--item">
-          <Input v-model="day" label="День" :required="true" />
+          <Input
+            v-model="day"
+            label="День"
+            :required="true"
+            :errors="dayError"
+          />
         </div>
         <div class="answers--item">
-          <Input v-model="month" label="Месяц" :required="true" />
+          <Input
+            v-model="month"
+            label="Месяц"
+            :required="true"
+            :errors="monthError"
+          />
         </div>
         <div class="answers--item">
-          <Input v-model="year" label="Год" :required="true" />
+          <Input
+            v-model="year"
+            label="Год"
+            :required="true"
+            :errors="yearError"
+          />
         </div>
-        <Button :disabled="!isDisabledButton" @click="setAge" text="Далее" />
+        <Button @click="check" text="Далее" />
       </div>
     </div>
     <div class="number">Вопрос 3-5</div>
@@ -40,16 +55,10 @@ export default {
       day: "",
       month: "",
       year: "",
+      dayError: [],
+      monthError: [],
+      yearError: [],
     }
-  },
-  computed: {
-    isDisabledButton() {
-      let dayValid = parseInt(this.day) > 0 && parseInt(this.day) < 32
-      let monthValid = parseInt(this.month) > 0 && parseInt(this.month) < 12
-      let yearValid = parseInt(this.year) > 1905 && parseInt(this.year) < 2003
-
-      return dayValid && monthValid && yearValid
-    },
   },
   methods: {
     setAge() {
@@ -78,6 +87,27 @@ export default {
     },
     setYear(e) {
       this.year = e.target.value
+    },
+    check: function(e) {
+      if (
+        this.day.length > 0 &&
+        this.month.length > 0 &&
+        this.year.length > 0
+      ) {
+        this.setAge()
+      }
+
+      this.errors = []
+
+      if (!this.day) {
+        this.dayError.push("день")
+      }
+      if (!this.month) {
+        this.monthError.push("месяц")
+      }
+      if (!this.year) {
+        this.yearError.push("год")
+      }
     },
   },
 }
